@@ -1,0 +1,19 @@
+// Pass tests.
+
+
+    static int beautifulDays(int i, int j, int k) {
+
+        IntUnaryOperator reverse = (opperand) -> {
+            int reversed = 0;
+            int num = opperand;
+            while (num != 0) {
+                int digit = num % 10;
+                reversed = reversed * 10 + digit;
+                num /= 10;
+            }
+            return Math.abs(opperand - reversed);
+        };
+
+        return (int) IntStream.rangeClosed(i, j).map(reverse)
+                .filter(v -> v % k == 0).count();
+    }
