@@ -1,0 +1,9 @@
+// Pass
+
+
+    static String angryProfessor(int k, int[] a) {
+
+        long onTime = Arrays.stream(a).filter(t -> t <= 0).count();
+
+        return onTime >= k ? "NO" : "YES";
+    }
