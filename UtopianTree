@@ -1,0 +1,7 @@
+// Pass all tests.
+
+    static int utopianTree(int n) {
+
+        return IntStream.rangeClosed(1, n)
+                .reduce(1, (acc, idx) -> idx % 2 != 0 ? acc * 2 : acc + 1);
+    }
