@@ -1,0 +1,19 @@
+// I believe a deque is the approach to go.
+
+    static int[] circularArrayRotation(int[] a, int k, int[] queries) {
+
+        LinkedList<Integer> list = Arrays.stream(a).boxed()
+                .collect(Collectors.toCollection(LinkedList::new));
+        
+        for (int i = 0; i < k; i++) {
+            list.push(list.pollLast());
+        }
+        
+        for (int i = 0; i < queries.length; i++) {
+            if (queries[i] < list.size()) {
+                queries[i] = list.get(queries[i]);
+            }
+        }
+        
+        return queries;
+    }
