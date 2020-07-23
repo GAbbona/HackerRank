@@ -1,0 +1,12 @@
+//using streams. all tests passed
+
+    static void extraLongFactorials(int n) {
+
+        System.out.println(IntStream.rangeClosed(1, n)
+                .mapToObj(v -> new BigInteger(Integer.toString(v)))
+                .reduce((acc, val) -> {
+                    acc = acc.multiply(val);
+                    return acc;
+                }).orElse(BigInteger.ONE));
+
+    }
