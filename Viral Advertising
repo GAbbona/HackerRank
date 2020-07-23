@@ -1,0 +1,12 @@
+//Pass tests
+
+// frist I create the iteration based on the first condition creating a stream of people liking the advertisment, per each day. (limint n).
+// then reduce the stream of liked people to the result following the second condition.
+
+
+    static int viralAdvertising(int n) {
+
+        return Stream.iterate(5, p -> Math.floorDiv(p, 2) * 3).limit(n)
+                .reduce(0,(l, s) -> l += Math.floorDiv(s, 2));
+
+    }
