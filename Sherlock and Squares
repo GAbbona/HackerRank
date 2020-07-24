@@ -1,0 +1,15 @@
+// My approach is that as soon you find the first perfect square, eg. number 4 = 2 * 2, the next perfect square after 4 would be 9 = 3 * 3, and so on. 
+// Here is my code in Java.
+
+
+        int count = 0;
+
+        for (int i = a; i <= b; i++) {
+            int sq = (int) Math.sqrt(i);
+            if (i == sq * sq) {
+                count++;
+                i = (sq + 1) * (sq + 1) - 1;
+            }
+        }
+
+        return count;
