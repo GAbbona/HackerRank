@@ -1,0 +1,18 @@
+// all test passed.
+
+
+static long repeatedString(String s, long n) {
+
+        long left = n % s.length();
+        long most = s.chars().filter(c -> (char) c == 'a').count();
+        long last = s.substring(0, (int) left).chars().filter(c -> (char) c == 'a').count();
+        long repeated = n / s.length();
+
+        return most * repeated + last;
+
+//        return Stream.iterate(0, j -> j < s.length() - 1 ? ++j : 0)
+//                .limit(n)
+//                .map(i -> s.charAt(i))        Tried this one first but runtime error comes out
+//                .filter(c -> c == 'a')
+//                .count();
+    }
