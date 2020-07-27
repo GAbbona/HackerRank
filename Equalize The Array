@@ -1,0 +1,9 @@
+
+
+   static int equalizeArray(int[] arr) {
+
+        Map<Integer, Long> eqMap = Arrays.stream(arr).boxed()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return (int) (arr.length - eqMap.values().stream().mapToLong(Long::valueOf).max().orElse(0));
+   }
