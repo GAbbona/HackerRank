@@ -1,0 +1,72 @@
+// It took me some time to figure out this one. My first code couldn't get through the time execution time limits. 
+// So, some math comes handy. First I calculate the total number of moves as there are no obstacles, just using math. 
+// If there are no obstacles that is the answer.
+
+// If there are obstacles, loop through them, using boolean to close each direction that is found and using math calculate the non moves. 
+// But I still had error, because the obstacles had to be sorted from the queen to the farthest obstacles position.
+
+// Here is my code in Java.
+
+
+    static int queensAttack(int n, int k, int r_q, int c_q, int[][] obstacles) {
+
+        int vertHor = n - 1;
+        int d1 = Math.min(n - c_q, n - r_q) + Math.min(r_q - 1, c_q - 1);
+        int d2 = Math.min(c_q - 1, n - r_q) + Math.min(n - c_q, r_q - 1);
+        int total = vertHor * 2 + d1 + d2;
+        if (k == 0) {
+            return total;
+        }
+        boolean u = false;
+        boolean d = false;
+        boolean l = false;
+        boolean r = false;
+        boolean ul = false;
+        boolean ur = false;
+        boolean dl = false;
+        boolean dr = false;
+        
+        Arrays.sort(obstacles, (int[] x, int[] y) -> Math.min(Math.abs(x[0] - r_q), Math.abs(x[1] - c_q))
+                - Math.min(Math.abs(y[0] - r_q), Math.abs(y[1] - c_q)));
+
+        for (int[] obs : obstacles) {
+            int oRow = obs[0];
+            int oCol = obs[1];
+            if (oRow == r_q) {
+                if (oCol < c_q && !l) {
+                    total -= oCol;
+                    l = true;
+                } else if (!r) {
+                    total -= n - oCol + 1;
+                    r = true;
+                }
+            } else if (oCol == c_q) {
+                if (oRow < r_q && !d) {
+                    total -= oRow;
+                    d = true;
+                } else if (!u) {
+                    total -= n - oRow + 1;
+                    u = true;
+                }
+            } else if (Math.abs(c_q - oCol) == Math.abs(r_q - oRow)) {//oCol != c_q && oRow != r_q) {
+                if (oCol < c_q && oRow > r_q && !ul) {
+                    total -= Math.min(n - oRow + 1, oCol);
+                    ul = true;
+                } else if (oCol < c_q && oRow < r_q && !dl) {
+                    total -= Math.min(oRow, oCol);
+                    dl = true;
+                } else if (oCol > c_q && oRow < r_q && !dr) {
+                    total -= Math.min(oRow, n - oCol + 1);
+                    dr = true;
+                } else if (oCol > c_q && oRow > r_q && !ur) {
+                    total -= Math.min(n - oRow, n - oCol) + 1;
+                    ur = true;
+                }
+            }
+            if (u && d && l && r && ul && ur && dl && dr) {
+                break;
+            }
+        }
+
+        return total;
+    }
