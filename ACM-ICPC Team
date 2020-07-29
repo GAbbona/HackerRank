@@ -1,0 +1,27 @@
+// Got a solution using Java 8
+
+  static int[] acmTeam(String[] topic) {
+
+        List<List<Integer>> res = IntStream.range(0, topic.length)
+                .mapToObj(s -> IntStream.range(0, topic[s].length()).boxed()
+                .collect(Collectors.groupingBy(i -> topic[s].charAt(i))))
+                .map(m -> m.get('1'))
+                .collect(toList());
+        
+        long maxTopic = 0;
+        int teamCount = 0;
+        
+        for (int i = 0; i < res.size(); i++) {
+            for (int j = i + 1; j < res.size(); j++) {
+                long topics = Stream.concat(res.get(i).stream(), res.get(j).stream()).distinct().count();
+                if (topics >  maxTopic) {
+                    maxTopic = topics;
+                    teamCount = 1;
+                } else if (topics == maxTopic) {
+                    teamCount++;
+                }
+            }
+        }
+   
+        return new int[]{(int) maxTopic, teamCount};
+    }
