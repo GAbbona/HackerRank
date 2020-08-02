@@ -1,0 +1,34 @@
+// for challeng Ecryption. All test passed. 
+
+  static String encryption(String s) {
+
+        String S = s.replace(" ", "");
+
+        int L = S.length();
+        int tryRow = (int) Math.floor(Math.sqrt(L));
+        int row;
+        int col = (int) Math.ceil(Math.sqrt(L));
+        if (tryRow * col < L) {
+            row = tryRow + 1;
+        } else {
+            row = tryRow;
+        }
+        char[][] matrix = IntStream.range(0, L).collect(
+                () -> new char[row][col],
+                (acc, i) -> {
+                    int r = i / col;
+                    int c = i - (r * col);
+                    acc[r][c] = S.charAt(i);
+                },
+                (a, b) -> {
+                });
+        char[][] temp = new char[col][row];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                temp[j][i] = matrix[i][j];
+            }
+        }
+        return Arrays.stream(temp)
+                .map(arr -> String.valueOf(arr).trim())
+                .collect(Collectors.joining(" "));
+    }
