@@ -1,0 +1,24 @@
+
+
+    static void kaprekarNumbers(int p, int q) {
+    
+        long[] result = IntStream.rangeClosed(p, q).mapToLong(Long::valueOf)
+                .filter(v -> {
+                    int d = String.valueOf(v).length();
+                    Long sq = v * v;             
+                    String sqSt = sq.toString();
+                    if (sqSt.length() > 1) {
+                        long r = Long.parseLong(sqSt.substring(sqSt.length() - d));
+                        long l = Long.parseLong(sqSt.substring(0, sqSt.length() - d));
+                        return r + l == v;
+                    } else return v == 1;
+                }).toArray();
+                
+        if (result.length > 0) {
+            for (long l : result) {
+                System.out.print(l + " ");
+            }
+        } else {
+            System.out.println("INVALID RANGE");
+        }
+    }
