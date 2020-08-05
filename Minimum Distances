@@ -1,0 +1,14 @@
+// Just mapping values as key and indexes as values. filter values lower than one (no repeat). 
+
+
+    static int minimumDistances(int[] a) {
+
+        Map<Integer,List<Integer>> map = IntStream.range(0, a.length).boxed()
+                .collect(Collectors.groupingBy(i -> a[i]));
+
+        return map.entrySet().stream().filter(m -> m.getValue().size() > 1)
+                .map(m -> m.getValue().stream()
+                        .reduce((acc,val)-> Math.abs(acc - val)).get())
+                .mapToInt(Integer::valueOf).min().orElse(-1);
+        
+    }
