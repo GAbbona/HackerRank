@@ -6,13 +6,9 @@
 
         int L = S.length();
         int tryRow = (int) Math.floor(Math.sqrt(L));
-        int row;
         int col = (int) Math.ceil(Math.sqrt(L));
-        if (tryRow * col < L) {
-            row = tryRow + 1;
-        } else {
-            row = tryRow;
-        }
+        int row = tryRow * col < L ? tryRow + 1 : tryRow;
+        
         char[][] matrix = IntStream.range(0, L).collect(
                 () -> new char[row][col],
                 (acc, i) -> {
@@ -29,6 +25,7 @@
             }
         }
         return Arrays.stream(temp)
-                .map(arr -> String.valueOf(arr).trim())
+                .map(String::valueOf)
+                .map(String::trim)
                 .collect(Collectors.joining(" "));
     }
